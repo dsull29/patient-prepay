@@ -15,6 +15,7 @@ export class InsuranceEligibilityComponent implements OnInit {
   patientResponsibility = 0;
   insuranceEligible = false;
   loading = false;
+  eligibilityChecked = false;
 
   constructor(private router: Router) { }
 
@@ -27,7 +28,7 @@ export class InsuranceEligibilityComponent implements OnInit {
   onSubmit() {
     if (this.hasInsurance == false) {
       this.router.navigate(['/payment'], { state: { services: history.state.services, cost: history.state.cost, hasInsurance: this.hasInsurance, insuranceName: "SP", insuranceEligible: false, patientResponsibility: this.patientResponsibility } });
-    } else if (this.insuranceEligible) {
+    } else if (this.eligibilityChecked) {
       this.router.navigate(['/payment'], { state: { services: history.state.services, cost: history.state.cost, hasInsurance: this.hasInsurance, insuranceName: this.insuranceName, insuranceEligible: this.insuranceEligible, patientResponsibility: this.patientResponsibility } });
     } else {
       // this.errorMessage = 'Please check insurance eligibility first.';
@@ -36,9 +37,12 @@ export class InsuranceEligibilityComponent implements OnInit {
 
   checkEligibility() {
     this.loading = true;
+    this.eligibilityChecked = false;
+    console.log(this.eligibilityChecked);
     setTimeout(() => {
       this.loading = false;
       const hasCoverage = Math.random() < 0.5;
+
       if (hasCoverage) {
         this.patientResponsibility = 45;
         this.insuranceEligible = true;
@@ -46,6 +50,9 @@ export class InsuranceEligibilityComponent implements OnInit {
         this.patientResponsibility = this.cost;
         this.insuranceEligible = false;
       }
+
+      this.eligibilityChecked = true;
+      console.log(this.eligibilityChecked);
     }, 2000);
   }
 }
