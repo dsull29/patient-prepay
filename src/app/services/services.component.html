@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <h1>Healthcare Services</h1>
+        <p>Select the services you need:</p>
+        <div class="card-deck">
+            <div class="card" *ngFor="let service of services" [ngClass]="{'selected': isSelected(service)}" (click)="selectService(service)">
+                <div class="card-body">
+                  <h5 class="card-title">{{ service.name }}</h5>
+                  <p class="card-text">{{ service.description }}</p>
+                  <p class="card-text font-weight-bold">{{ service.price | currency }}</p>
+                </div>
+              </div>
+            </div>
+        <div class="text-center mt-4">
+          <button class="btn btn-primary" (click)="getCost()">Get Cost</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

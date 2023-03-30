@@ -1,0 +1,70 @@
+<div class="container">
+  <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+    {{ errorMessage }}
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h1>Insurance Eligibility</h1>
+      <form (ngSubmit)="onSubmit()" #form="ngForm">
+        <div class="form-group">
+          <label for="hasInsurance">Do you have health insurance coverage?</label>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="hasInsurance" name="hasInsurance"
+              [(ngModel)]="hasInsurance">
+            <label class="form-check-label" for="hasInsurance">Yes</label>
+          </div>
+        </div>
+        <div *ngIf="hasInsurance">
+          <div class="form-group">
+            <label for="insuranceName">Insurance name</label>
+            <select class="form-control" id="insuranceName" name="insuranceName" [(ngModel)]="insuranceName" required>
+              <option value="">-- Select an insurance --</option>
+              <option value="Blue Cross">Blue Cross</option>
+              <option value="Medicare">Medicare</option>
+              <option value="Medicaid">Medicaid</option>
+              <option value="Humana">Humana</option>
+            </select>
+          </div>
+        </div>
+        <div *ngIf="hasInsurance && insuranceName" class="mb-4 d-flex justify-content-center">
+          <button class="btn btn-primary my-2" (click)="checkEligibility()">Check Eligibility</button>
+        </div>
+
+        <div class="card-body p-0 my-5">
+          <table class="table table-bordered table-hover m-0">
+            <tbody>
+              <tr>
+                <td>Total Cost:</td>
+                <td class="text-right">{{ cost | currency }}</td>
+              </tr>
+              <tr *ngIf="hasInsurance && insuranceEligible !== null">
+                <td>Insurance Eligibility:</td>
+                <td class="text-center">
+                  <ng-container *ngIf="loading; else eligibility">
+                    <div class="spinner-border spinner-border-sm text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </ng-container>
+                  <ng-template #eligibility>
+                    <span *ngIf="insuranceEligible" class="text-success">&#10003;</span>
+                    <span *ngIf="!insuranceEligible" class="text-danger">&#10007;</span>
+                  </ng-template>
+                </td>
+              </tr>
+              <tr *ngIf="!loading || !hasInsurance">
+                <td>Patient Responsibility:</td>
+                <td class="text-right" *ngIf="hasInsurance">{{ patientResponsibility | currency: 'USD' }}</td>
+                <td class="text-right" *ngIf="!hasInsurance">{{ cost | currency: 'USD' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="text-center mt-4">
+          <button class="btn btn-primary" type="submit">Continue</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
