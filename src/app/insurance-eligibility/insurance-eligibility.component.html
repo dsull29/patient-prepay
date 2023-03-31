@@ -38,7 +38,7 @@
                 <td>Total Cost:</td>
                 <td class="text-right">{{ cost | currency }}</td>
               </tr>
-              <tr *ngIf="hasInsurance && insuranceEligible !== null">
+              <tr *ngIf="hasInsurance && insuranceName && insuranceEligible !== null">
                 <td>Insurance Eligibility:</td>
                 <td class="text-center">
                   <ng-container *ngIf="loading; else eligibility">
@@ -48,11 +48,12 @@
                   </ng-container>
                   <ng-template #eligibility>
                     <span *ngIf="insuranceEligible" class="text-success">&#10003;</span>
-                    <span *ngIf="!insuranceEligible" class="text-danger">&#10007;</span>
+                    <span *ngIf="!insuranceEligible && eligibilityChecked" class="text-danger">&#10007;</span>
+                    <span *ngIf="!insuranceEligible && !eligibilityChecked" class="text-danger">---</span>
                   </ng-template>
                 </td>
               </tr>
-              <tr *ngIf="!loading || !hasInsurance">
+              <tr>
                 <td>Patient Responsibility:</td>
                 <td class="text-right" *ngIf="hasInsurance">{{ patientResponsibility | currency: 'USD' }}</td>
                 <td class="text-right" *ngIf="!hasInsurance">{{ cost | currency: 'USD' }}</td>
@@ -62,7 +63,7 @@
         </div>
 
         <div class="text-center mt-4">
-          <button class="btn btn-primary" type="submit">Continue</button>
+          <button class="btn btn-primary" type="submit" [disabled]="hasInsurance && !eligibilityChecked">Continue</button>
         </div>
       </form>
     </div>

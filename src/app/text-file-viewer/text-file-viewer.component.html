@@ -1,0 +1,13 @@
+<h2>Text File Viewer</h2>
+
+<button class="btn btn-secondary mt-3" (click)="goBack()">Back</button>
+
+<div *ngIf="fileContent">
+  <pre [innerHTML]="fileContent"></pre>
+</div>
+
+<div *ngIf="!fileContent">
+  <p>Loading file...</p>
+</div>
+
+<button class="btn btn-secondary mt-3" (click)="goBack()">Back</button>

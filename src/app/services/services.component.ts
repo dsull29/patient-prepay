@@ -20,6 +20,7 @@ export class ServicesComponent implements OnInit {
   ];
 
   selectedServices: Service[] = [];
+  hasSelection = false;
 
   constructor(private router: Router) {}
 
@@ -36,6 +37,8 @@ export class ServicesComponent implements OnInit {
       // If the service is not already selected, add it to the selectedServices array
       this.selectedServices.push(service);
     }
+
+    this.hasSelection = this.selectedServices.length > 0;
   }
 
   isSelected(service: Service): boolean {
@@ -52,4 +55,3 @@ export class ServicesComponent implements OnInit {
     this.router.navigate(['/insurance-eligibility'], { state: { services: this.selectedServices, cost: totalCost } });
   }
 }
-
