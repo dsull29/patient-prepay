@@ -38,7 +38,6 @@ export class InsuranceEligibilityComponent implements OnInit {
   checkEligibility() {
     this.loading = true;
     this.eligibilityChecked = false;
-    console.log(this.eligibilityChecked);
     setTimeout(() => {
       this.loading = false;
       const hasCoverage = Math.random() < 0.5;
@@ -52,7 +51,6 @@ export class InsuranceEligibilityComponent implements OnInit {
       }
 
       this.eligibilityChecked = true;
-      console.log(this.eligibilityChecked);
     }, 2000);
   }
 }

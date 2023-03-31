@@ -43,7 +43,6 @@ export class PaymentComponent implements OnInit {
   }
 
   onSelectTerms(terms: number) {
-    console.log('terms', terms)
     this.paymentTerm = terms;
     this.amountDuePaymentPlan = this.amountDue / this.paymentTerm
     

@@ -47,11 +47,9 @@ export class ServicesComponent implements OnInit {
 
   getCost() {
     let totalCost = 0;
-    console.log("Services:",this.selectedServices)
     for (const service of this.selectedServices) {
       totalCost += service.price;
     }
-    console.log('Total cost:', totalCost);
     this.router.navigate(['/insurance-eligibility'], { state: { services: this.selectedServices, cost: totalCost } });
   }
 }
