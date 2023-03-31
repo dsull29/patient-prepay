@@ -37,8 +37,6 @@ export class PaymentOptionsComponent implements OnInit {
         totalPayment: this.patientResponsibility * (1 - option.discount)
       }
     });
-   
-
   }
 
   selectTerm(term: number, monthlyPayment: number) {
