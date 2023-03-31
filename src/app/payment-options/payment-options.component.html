@@ -1,0 +1,19 @@
+<table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Payment Term (Months)</th>
+        <th>Discount %</th>
+        <th>Monthly Payment</th>
+        <th>Total Payment</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let option of paymentTerms" [ngClass]="{'selected': option.selected}" (click)="selectTerm(option.term, option.monthlyPayment)">
+        <td>{{ option.term }}</td>
+        <td>{{ option.discount | percent }}</td>
+        <td>{{ option.monthlyPayment | currency }}</td>
+        <td>{{ option.totalPayment | currency }}</td>
+      </tr>
+    </tbody>
+  </table>
+  

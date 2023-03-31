@@ -1,0 +1,11 @@
+<div class="container">
+    <h2>Enter Patient Responsibility from Bill</h2>
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="patient-responsibility">Patient Responsibility:</label>
+        <input type="number" class="form-control" id="patient-responsibility" name="patientResponsibility" [(ngModel)]="patientResponsibility" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Next</button>
+    </form>
+  </div>
+  

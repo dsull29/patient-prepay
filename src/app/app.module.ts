@@ -10,6 +10,9 @@ import { InsuranceEligibilityComponent } from './insurance-eligibility/insurance
 import { DiscountsAndAdjustmentsComponent } from './discounts-and-adjustments/discounts-and-adjustments.component';
 import { PaymentComponent } from './payment/payment.component';
 import { TextFileViewerComponent } from './text-file-viewer/text-file-viewer.component';
+import { PaymentOptionsComponent } from './payment-options/payment-options.component';
+import { RouterModule } from '@angular/router';
+import { BillPayComponent } from './bill-pay/bill-pay.component';
 
 @NgModule({
   declarations: [
@@ -20,12 +23,15 @@ import { TextFileViewerComponent } from './text-file-viewer/text-file-viewer.com
     DiscountsAndAdjustmentsComponent,
     PaymentComponent,
     TextFileViewerComponent,
+    PaymentOptionsComponent,
+    BillPayComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    RouterModule.forRoot([]),
   ],
   providers: [],
   bootstrap: [AppComponent]

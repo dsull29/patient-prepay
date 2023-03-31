@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
   templateUrl: './insurance-eligibility.component.html',
   styleUrls: ['./insurance-eligibility.component.css']
 })
+
 export class InsuranceEligibilityComponent implements OnInit {
 
   hasInsurance = false;
@@ -34,20 +35,22 @@ export class InsuranceEligibilityComponent implements OnInit {
       // this.errorMessage = 'Please check insurance eligibility first.';
     }
   }
+  
 
   checkEligibility() {
     this.loading = true;
     this.eligibilityChecked = false;
+
     setTimeout(() => {
       this.loading = false;
       const hasCoverage = Math.random() < 0.5;
 
       if (hasCoverage) {
-        this.patientResponsibility = 45;
         this.insuranceEligible = true;
+        this.patientResponsibility = 45;
       } else {
-        this.patientResponsibility = this.cost;
         this.insuranceEligible = false;
+        this.patientResponsibility = this.cost;
       }
 
       this.eligibilityChecked = true;

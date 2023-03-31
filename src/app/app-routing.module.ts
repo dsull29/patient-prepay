@@ -6,6 +6,7 @@ import { InsuranceEligibilityComponent } from './insurance-eligibility/insurance
 import { DiscountsAndAdjustmentsComponent } from './discounts-and-adjustments/discounts-and-adjustments.component';
 import { PaymentComponent } from './payment/payment.component';
 import { TextFileViewerComponent } from './text-file-viewer/text-file-viewer.component';
+import { BillPayComponent } from './bill-pay/bill-pay.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'discounts-and-adjustments', component: DiscountsAndAdjustmentsComponent},
   { path: 'payment', component: PaymentComponent},
   { path: 'transcript', component: TextFileViewerComponent},
+  { path: 'bill-pay', component: BillPayComponent },
   { path: '**', redirectTo: '' }
 ];
 

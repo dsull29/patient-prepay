@@ -22,34 +22,52 @@ export class PaymentComponent implements OnInit {
   monthlyPayment: number = 0;
   amountDuePayNow: number = 0;
   amountDuePaymentPlan: number = 0;
+  totalCost: number = 0;
+  discountsAvailable: boolean = false;
+  paidInFullDate: Date = new Date();
+
+  paymentTermOptions = [
+    { term: 6, discount: 0.5},
+    { term: 12, discount: 0.4},
+    { term: 18, discount: 0.3},
+    { term: 24, discount: 0.3}
+  ];
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
     const navigation = this.router.getCurrentNavigation();
     const state = history.state;
+    this.totalCost = state.cost;
     this.patientResponsibility = state.patientResponsibility;
     this.hasInsurance = state.hasInsurance;
     this.insuranceEligible = state.insuranceEligible;
     if (this.hasInsurance && this.insuranceEligible) {
       this.amountDue = this.patientResponsibility;
-    } else if (!this.hasInsurance && this.payInFull) {
-      this.amountDue = this.patientResponsibility * 0.5;
-    } else if (!this.hasInsurance && this.paymentPlan) {
-      this.amountDue = this.patientResponsibility * 0.7;
-    }
-    this.amountDuePayNow = this.amountDue;
+      this.discountsAvailable = false;
+    } else {
+      this.amountDue = this.patientResponsibility;  
+      this.discountsAvailable = true;
+    } 
+
+    this.amountDuePayNow = this.amountDue * 0.5;
     this.amountDuePaymentPlan = this.amountDue / this.paymentTerm
   }
 
-  onSelectTerms(terms: number) {
-    this.paymentTerm = terms;
-    this.amountDuePaymentPlan = this.amountDue / this.paymentTerm
+  onSelectTerms(option: { term: number, monthlyPayment: number }) {
+    this.monthlyPayment = option.monthlyPayment;
     
+    // get the date <ter> number of months from today and set it to the paidInFullDate property
+    // use the following code to get the date <term> number of months from today
+    // const date = new Date();
+    // date.setMonth(date.getMonth() + term);
+    // this.paidInFullDate = date;
+    const date = new Date();  
+    date.setMonth(date.getMonth() + option.term);
+    this.paidInFullDate = date;
   }
 
   onPayNow() {
-    this.amountDue = this.patientResponsibility * 0.5;
     alert('Thank you for your payment!');
   }
 
