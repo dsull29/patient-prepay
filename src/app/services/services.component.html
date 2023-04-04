@@ -1,20 +1,66 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-6 offset-md-3">
-      <h1>Healthcare Services</h1>
-      <p>Select the services you need:</p>
+    <div class="col-md-4">
+      <h1>Departments</h1>
+      <ul class="list-group">
+        <li class="list-group-item" (click)="selectedDepartment=''">All Departments</li>
+        <li class="list-group-item" *ngFor="let department of departments" (click)="selectedDepartment=department">{{department}}</li>
+      </ul>
+    </div>
+    <div class="col-md-4">
+      <h1>Services</h1>
       <div class="card-deck">
-          <div class="card" *ngFor="let service of services" [ngClass]="{'selected': isSelected(service)}" (click)="selectService(service)">
-              <div class="card-body">
-                <h5 class="card-title">{{ service.name }}</h5>
-                <p class="card-text">{{ service.description }}</p>
-                <p class="card-text font-weight-bold">{{ service.price | currency }}</p>
-              </div>
-            </div>
+        <div class="card" *ngFor="let service of services | filterByDepartment:selectedDepartment" [ngClass]="{'selected': isSelected(service)}" (click)="selectService(service)">
+          <div class="card-body">
+            <h5 class="card-title">{{ service.name }}</h5>
+            <p class="card-text fw-bold">{{ service.price | currency }}</p>
           </div>
-      <div class="text-center mt-4">
-        <button class="btn btn-primary" [disabled]="!hasSelection" (click)="getCost()">Get Cost</button>
+        </div>
       </div>
+    </div>
+    <div class="col-md-4">
+      <h1>Selected Services</h1>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let service of selectedServices">{{ service.name }} - {{ service.price | currency }}</li>
+        <li class="list-group-item">
+          <div class="text-center">
+            <button class="btn btn-primary" [disabled]="!hasSelection" (click)="getCost()">Get Cost</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <h1>Departments</h1>
+      <ul class="list-group">
+        <li class="list-group-item" (click)="selectedDepartment=''">All Departments</li>
+        <li class="list-group-item" *ngFor="let department of departments" (click)="selectedDepartment=department">{{department}}</li>
+      </ul>
+    </div>
+    <div class="col-md-4">
+      <h1>Services</h1>
+      <div class="card-deck">
+        <div class="card" *ngFor="let service of services | filterByDepartment:selectedDepartment" [ngClass]="{'selected': isSelected(service)}" (click)="selectService(service)">
+          <div class="card-body">
+            <h5 class="card-title">{{ service.name }}</h5>
+            <p class="card-text fw-bold">{{ service.price | currency }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h1>Selected Services</h1>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let service of selectedServices">{{ service.name }} - {{ service.price | currency }}</li>
+        <li class="list-group-item">
+          <div class="text-center">
+            <button class="btn btn-primary" [disabled]="!hasSelection" (click)="getCost()">Get Cost</button>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

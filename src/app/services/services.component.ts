@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 interface Service {
+  department: string;
   name: string;
-  price: number;
   description: string;
+  price: number;
 }
 
 @Component({
@@ -13,21 +15,25 @@ interface Service {
   styleUrls: ['./services.component.css']
 })
 export class ServicesComponent implements OnInit {
-  services: Service[] = [
-    { name: 'Service 1', price: 100, description: 'Brain Removal' },
-    { name: 'Service 2', price: 200, description: 'Ankle Rotation' },
-    { name: 'Service 3', price: 300, description: 'Face Improvements'}
-  ];
-
+  services: Service[] = [];
   selectedServices: Service[] = [];
   hasSelection = false;
+  departments: string[] = [];
+  selectedDepartment = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private http: HttpClient) {}
 
   ngOnInit(): void {
     this.selectedServices = [];
+    this.http.get<Service[]>('assets/services.json').subscribe(
+      services => {
+        this.services = services;
+        this.departments = [...new Set(this.services.map(service => service.department))];
+      },
+      error => console.log(error)
+    );
   }
-  
+
   selectService(service: Service) {
     const index = this.selectedServices.findIndex(s => s.name === service.name);
     if (index !== -1) {

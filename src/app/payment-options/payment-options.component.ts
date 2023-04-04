@@ -9,7 +9,7 @@ export class PaymentOptionsComponent implements OnInit {
 
   @Input() options: { term: number, discount: number }[] = [];
   @Output() optionSelected = new EventEmitter<{ term: number, monthlyPayment: number }>();
-  
+
   patientResponsibility: number = 0;
   selectedTerm: number = 0;
   paymentTerms: { term: number, discount: number, selected: boolean, monthlyPayment: number, totalPayment: number }[] = [];
@@ -19,15 +19,6 @@ export class PaymentOptionsComponent implements OnInit {
   ngOnInit(): void {
     this.selectedTerm = this.options[0].term;
     this.patientResponsibility = history.state.patientResponsibility;
-
-    // set this.paymentTerms to this.options and then add two new property to each option called selected and monthlyPayment
-    // set the selected property to false and the monthlyPayment to the result of the following formula:
-    // (this.patientResponsibility * (1 - option.discount)) / option.term
-    // this will give you the monthly payment for each option
-    // the selected property will be used to determine which option is selected
-    // the monthlyPayment property will be used to display the monthly payment for each option
-    // the first option should be selected by default
-    // when an option is selected, emit the term to the parent component
 
     this.paymentTerms = this.options.map(option => {
       return {

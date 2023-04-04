@@ -13,6 +13,7 @@ import { TextFileViewerComponent } from './text-file-viewer/text-file-viewer.com
 import { PaymentOptionsComponent } from './payment-options/payment-options.component';
 import { RouterModule } from '@angular/router';
 import { BillPayComponent } from './bill-pay/bill-pay.component';
+import { FilterByDepartmentPipe } from './pipes/filter-by-department.pipe';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { BillPayComponent } from './bill-pay/bill-pay.component';
     TextFileViewerComponent,
     PaymentOptionsComponent,
     BillPayComponent,
+    FilterByDepartmentPipe,
   ],
   imports: [
     BrowserModule,
