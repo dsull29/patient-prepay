@@ -30,7 +30,8 @@ export class PaymentComponent implements OnInit {
     { term: 6, discount: 0.5},
     { term: 12, discount: 0.4},
     { term: 18, discount: 0.3},
-    { term: 24, discount: 0.3}
+    { term: 24, discount: 0.25},
+    { term: 36, discount: 0.2}
   ];
 
   constructor(private router: Router) { }
@@ -46,9 +47,9 @@ export class PaymentComponent implements OnInit {
       this.amountDue = this.patientResponsibility;
       this.discountsAvailable = false;
     } else {
-      this.amountDue = this.patientResponsibility;  
+      this.amountDue = this.patientResponsibility;
       this.discountsAvailable = true;
-    } 
+    }
 
     this.amountDuePayNow = this.amountDue * 0.5;
     this.amountDuePaymentPlan = this.amountDue / this.paymentTerm
@@ -56,13 +57,13 @@ export class PaymentComponent implements OnInit {
 
   onSelectTerms(option: { term: number, monthlyPayment: number }) {
     this.monthlyPayment = option.monthlyPayment;
-    
+
     // get the date <ter> number of months from today and set it to the paidInFullDate property
     // use the following code to get the date <term> number of months from today
     // const date = new Date();
     // date.setMonth(date.getMonth() + term);
     // this.paidInFullDate = date;
-    const date = new Date();  
+    const date = new Date();
     date.setMonth(date.getMonth() + option.term);
     this.paidInFullDate = date;
   }

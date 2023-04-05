@@ -1,5 +1,6 @@
 .selected {
-  background-color: skyblue;
-
+  background-color: var(--bs-primary);
+  color: white;
 }
+
 

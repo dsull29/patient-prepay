@@ -4,7 +4,7 @@
       <h1>Departments</h1>
       <ul class="list-group">
         <li class="list-group-item" (click)="selectedDepartment=''">All Departments</li>
-        <li class="list-group-item" *ngFor="let department of departments" (click)="selectedDepartment=department">{{department}}</li>
+        <li class="list-group-item" *ngFor="let department of departments" [ngClass]="{ 'active': department === selectedDepartment }" (click)="selectedDepartment=department">{{department}}</li>
       </ul>
     </div>
     <div class="col-md-4">
@@ -13,21 +13,36 @@
         <div class="card" *ngFor="let service of services | filterByDepartment:selectedDepartment" [ngClass]="{'selected': isSelected(service)}" (click)="selectService(service)">
           <div class="card-body">
             <h5 class="card-title">{{ service.name }}</h5>
-            <p class="card-text fw-bold">{{ service.price | currency }}</p>
+            <p class="card-text">{{ service.description }}</p>
           </div>
         </div>
       </div>
     </div>
     <div class="col-md-4">
       <h1>Selected Services</h1>
-      <ul class="list-group">
-        <li class="list-group-item" *ngFor="let service of selectedServices">{{ service.name }} - {{ service.price | currency }}</li>
-        <li class="list-group-item">
-          <div class="text-center">
-            <button class="btn btn-primary" [disabled]="!hasSelection" (click)="getCost()">Get Cost</button>
-          </div>
-        </li>
-      </ul>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Service</th>
+            <th scope="col" class="text-right">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let service of selectedServices">
+            <td>{{ service.name }}</td>
+            <td class="text-end">{{ service.price | currency }}</td>
+          </tr>
+          <tr>
+            <td><strong>Total:</strong></td>
+            <td class="text-end"><strong>{{ totalCost() | currency }}</strong></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="text-center">
+        <p>Continue to check insurance eligibility and possible discounts:</p>
+        <button class="btn btn-primary" [disabled]="!hasSelection" (click)="getCost()">Continue</button>
+      </div>
     </div>
+
   </div>
 </div>
